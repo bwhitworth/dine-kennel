@@ -12,7 +12,8 @@ const newDino = (e) => {
       health: 100,
       imageUrl: document.getElementById('dino-image').value
     }
-    dinos.push(brandNewDino);
+  dinos.push(brandNewDino);
+  document.getElementById('new-dino-form').reset();
 
   console.log(dinos);
 };
