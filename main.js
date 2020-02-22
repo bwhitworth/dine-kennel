@@ -48,9 +48,26 @@ const closeSingleViewEvent = () => {
   printDinos(dinos);
 };
 
-const viewSingleDino = () => {
+const viewSingleDino = (e) => {
+  const dinoId = (e.target.closest('.card').id);
+  const selectedDino = dinos.find((currentDino)=> dinoId === currentDino.id);
   let domString = '';
-  domString += '<button type="button" class="btn btn-dark single-dino" id="close-single-view"><i class="fas fa-times-circle"></i></button>'
+  domString += ' <div class="container">',
+  domString += '  <div class="row">',
+  domString += '    <div class="col-6">',
+  domString += `      <img class="img-fluid"src="${selectedDino.imageUrl}" alt=""/>`,
+  domString += '    </div>',
+  domString += '    <div class="col-6">',
+  domString += `      <h2>${selectedDino.name}</h2>`,
+  domString += `      <p>Type: ${selectedDino.type}</p>`,
+  domString += `      <p>Age: ${selectedDino.age}</p>`,
+  domString += `      <p>Owner: ${selectedDino.owner}</p>`,
+  domString += `      <p>Health: ${selectedDino.health}</p>`,
+  domString += '      <button type="button" class="btn btn-dark single-dino" id="close-single-view"><i class="fas fa-times-circle"></i> Close</button>',
+  domString += '    </div>',
+  domString += '  </div>',
+  domString += '</div>',  
+  
   printToDom ('kennel', '');
   printToDom ('single-view', domString);
   document.getElementById('close-single-view').addEventListener('click', closeSingleViewEvent);
@@ -60,12 +77,12 @@ const printDinos = (dinoArray) => {
   let domString = '';
   for (let i = 0; i < dinoArray.length; i++) {
     domString += '<div class="col-4">'
-    domString +=  '<div class="card">'
+    domString +=  `<div class="card" id="${dinoArray[i].id}">`
     domString +=     `<img src="${dinoArray[i].imageUrl}" class="card-img-top" alt="dino image">`
     domString +=    '<div class="card-body">'
     domString +=      `<h5 class="card-title">${dinoArray[i].name}</h5>`
     domString +=      `<p class="card-text">Health: ${dinoArray[i].health}</p>`
-    domString +=      '<button type="button" class="btn btn-success single-dino"><i class="fas fa-info-circle"></i></button>'
+    domString +=      '<button type="button" class="btn btn-success single-dino"><i class="fas fa-info-circle"></i> Info</button>'
     domString +=    '</div>'
     domString +=  '</div>'
     domString += '</div>'
