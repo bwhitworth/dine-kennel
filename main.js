@@ -62,6 +62,13 @@ const closeSingleViewEvent = () => {
   printDinos(dinos);
 };
 
+const feedEvents = () => {
+  let feedButtons = document.getElementsByClassName('feed-dino');
+  for (let i = 0; i < feedButtons.length; i++) {
+    feedButtons[i].addEventListener('click', feedMe);
+  };
+};
+
 const viewSingleDino = (e) => {
   const dinoId = e.target.closest('.card').id;
   const selectedDino = dinos.find((currentDino)=> dinoId === currentDino.id);
@@ -96,8 +103,9 @@ const printDinos = (dinoArray) => {
     domString +=    '<div class="card-body">'
     domString +=      `<h5 class="card-title">${dinoArray[i].name}</h5>`
     domString +=      `<p class="card-text">Health: ${dinoArray[i].health}</p>`
-    domString +=      '<button type="button" class="btn btn-success single-dino"><i class="fas fa-info-circle"></i> Info</button>'
-    domString +=      '<button type="button" class="btn btn-danger delete-dino"><i class="fas fa-trash-alt"></i> Delete</button>'
+    domString +=          '<button type="button" class="btn btn-success single-dino"><i class="fas fa-info-circle"></i> Info</button>'
+    domString +=          '<button type="button" class="btn btn-danger delete-dino"><i class="fas fa-trash-alt"></i> Delete</button>'
+    domString +=          '<button type="button" class="btn btn-primary feed-dino"><i class="fas fa-utensils"></i> Feed</button>'
     domString +=    '</div>'
     domString +=  '</div>'
     domString += '</div>'
@@ -106,6 +114,7 @@ const printDinos = (dinoArray) => {
   singleDinoAddEvents();
   petEvents();
   deleteEvents();
+  feedEvents();
 };
 
 const newDino = (e) => {
@@ -139,6 +148,17 @@ const deleteDino = (e) => {
   const dinoPosition  = dinos.findIndex((p) => p.id === dinoId);
   dinos.splice(dinoPosition, 1);
   printDinos(dinos);
+};
+
+const feedMe = (e) => {
+  const dinoId = e.target.closest('.card').id;
+  const dinoPosition  = dinos.findIndex((p) => p.id === dinoId);
+  if (dinos[dinoPosition].health < 90 && dinos[dinoPosition].health > 0) {
+    dinos[dinoPosition].health += 10;
+    printDinos(dinos);} 
+  else if (dinos[dinoPosition].health > 89 && dinos[dinoPosition].health < 100) {
+    dinos[dinoPosition].health = 100
+    printDinos(dinos);}
 };
 
 const init = () => {
