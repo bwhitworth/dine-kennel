@@ -16,7 +16,7 @@ const dinos = [
     age: 100,
     owner: 'Mary',
     adventures: [],
-    health: 100,
+    health: 1,
     imageUrl: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic8.depositphotos.com%2F1339288%2F828%2Fi%2F450%2Fdepositphotos_8285841-stock-photo-zuniceratops-dinosaur.jpg&f=1&nofb=1'
   },
   {
@@ -26,7 +26,7 @@ const dinos = [
     age: 100,
     owner: 'Luke',
     adventures: [],
-    health: 100,
+    health: 98,
     imageUrl: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi5.walmartimages.com%2Fasr%2F24a8fcaa-f26a-400e-af1b-1f93c02ec142_1.174fe8958dd087964d8165371f8c3996.jpeg%3FodnHeight%3D450%26odnWidth%3D450%26odnBg%3Dffffff&f=1&nofb=1'
   }
 ]
@@ -43,13 +43,20 @@ const singleDinoAddEvents = () => {
   };
 };
 
+const petEvents = () => {
+  let viewButtons = document.getElementsByClassName('dino-photo');
+  for (let i = 0; i < viewButtons.length; i++) {
+    viewButtons[i].addEventListener('mouseleave', dinoHealth);
+  };
+};
+
 const closeSingleViewEvent = () => {
   printToDom('single-view', '');
   printDinos(dinos);
 };
 
 const viewSingleDino = (e) => {
-  const dinoId = (e.target.closest('.card').id);
+  const dinoId = e.target.closest('.card').id;
   const selectedDino = dinos.find((currentDino)=> dinoId === currentDino.id);
   let domString = '';
   domString += ' <div class="container">',
@@ -78,7 +85,7 @@ const printDinos = (dinoArray) => {
   for (let i = 0; i < dinoArray.length; i++) {
     domString += '<div class="col-4">'
     domString +=  `<div class="card" id="${dinoArray[i].id}">`
-    domString +=     `<img src="${dinoArray[i].imageUrl}" class="card-img-top" alt="dino image">`
+    domString +=     `<img src="${dinoArray[i].imageUrl}" class="card-img-top dino-photo" alt="dino image">`
     domString +=    '<div class="card-body">'
     domString +=      `<h5 class="card-title">${dinoArray[i].name}</h5>`
     domString +=      `<p class="card-text">Health: ${dinoArray[i].health}</p>`
@@ -89,6 +96,7 @@ const printDinos = (dinoArray) => {
   }
   printToDom('kennel', domString);
   singleDinoAddEvents();
+  petEvents();
 };
 
 const newDino = (e) => {
@@ -106,6 +114,13 @@ const newDino = (e) => {
   dinos.push(brandNewDino);
   document.getElementById('new-dino-form').reset();
   document.getElementById('collapseOne').classList.remove('show');
+  printDinos(dinos);
+};
+
+const dinoHealth = (e) => {
+  const dinoId = e.target.closest('.card').id;
+  const dinoPosition  = dinos.findIndex((p) => p.id === dinoId);
+  dinos[dinoPosition].health += 1;
   printDinos(dinos);
 };
 
