@@ -10,4 +10,4 @@
 - Print multiple cards and "single view" (toggle back and forth)
 - Targeting .closest id
 - .find method / inner function
-- Mouseover event
+- Mouseover/mouseleave event
