@@ -6,9 +6,9 @@
 - Input form `(.value)`
 - [FontAwesome icons](https://fontawesome.com/icons?d=gallery&m=free)
 - Event Listeners for buttons
-- Adding to default array
+- Adding new objects to existing array
 - Print multiple cards and "single view" (toggle back and forth)
-- Targeting .closest id
+- Targeting `.closest id`
 - `.find` method / inner function
 - Mouse events
-- 
+- Delete object from array
